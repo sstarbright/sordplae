@@ -21,6 +21,6 @@ func _physics_process(delta):
 		else:
 			player_entity.update_animation_state("Walk", (move_strength+0.25)*4.5)
 		player_entity.player_model.rotation.y = angle_offset-move_vector.angle()
-		player_entity.translation += Vector3(move_vector.x, 0.0, move_vector.y)*move_speed
+		player_entity.translation += Vector3(move_vector.x, 0.0, move_vector.y)*move_speed*delta
 	else:
 		player_entity.update_animation_state("Idle", 1.0)
