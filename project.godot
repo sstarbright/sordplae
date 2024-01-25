@@ -1,0 +1,286 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Spatial",
+"class": "AnimationController",
+"language": "GDScript",
+"path": "res://Scenes/Engine/Scripts/animation_controller.gd"
+}, {
+"base": "CameraBehaviour",
+"class": "AutoCameraBehaviour",
+"language": "GDScript",
+"path": "res://Systems/BehaviourCamera/Behaviours/auto_behaviour.gd"
+}, {
+"base": "Camera",
+"class": "BehaviourCamera",
+"language": "GDScript",
+"path": "res://Systems/BehaviourCamera/behaviour_camera.gd"
+}, {
+"base": "Reference",
+"class": "CameraBehaviour",
+"language": "GDScript",
+"path": "res://Systems/BehaviourCamera/camera_behaviour.gd"
+}, {
+"base": "NodeInput",
+"class": "Controllable",
+"language": "GDScript",
+"path": "res://Systems/NodeInput/nodeinput_controllable.gd"
+}, {
+"base": "Node",
+"class": "EventScheduler",
+"language": "GDScript",
+"path": "res://Systems/NodeEvents/event_scheduler.gd"
+}, {
+"base": "InputSource",
+"class": "InputAxis",
+"language": "GDScript",
+"path": "res://Systems/NodeInput/Sources/nodeinput_axis_source.gd"
+}, {
+"base": "InputSource",
+"class": "InputAxis2",
+"language": "GDScript",
+"path": "res://Systems/NodeInput/Sources/nodeinput_axis2_source.gd"
+}, {
+"base": "InputValue",
+"class": "InputBool",
+"language": "GDScript",
+"path": "res://Systems/NodeInput/Values/nodeinput_bool_value.gd"
+}, {
+"base": "InputSource",
+"class": "InputButton",
+"language": "GDScript",
+"path": "res://Systems/NodeInput/Sources/nodeinput_button_source.gd"
+}, {
+"base": "InputSource",
+"class": "InputClick",
+"language": "GDScript",
+"path": "res://Systems/NodeInput/Sources/nodeinput_click_source.gd"
+}, {
+"base": "InputSource",
+"class": "InputCursor",
+"language": "GDScript",
+"path": "res://Systems/NodeInput/Sources/nodeinput_cursor_source.gd"
+}, {
+"base": "InputValue",
+"class": "InputFloat",
+"language": "GDScript",
+"path": "res://Systems/NodeInput/Values/nodeinput_float_value.gd"
+}, {
+"base": "Reference",
+"class": "InputHalfToDouble",
+"language": "GDScript",
+"path": "res://Systems/NodeInput/Values/nodeinput_half_to_double.gd"
+}, {
+"base": "Reference",
+"class": "InputHalfToSingle",
+"language": "GDScript",
+"path": "res://Systems/NodeInput/Values/nodeinput_half_to_single.gd"
+}, {
+"base": "InputSource",
+"class": "InputKey",
+"language": "GDScript",
+"path": "res://Systems/NodeInput/Sources/nodeinput_key_source.gd"
+}, {
+"base": "NodeInput",
+"class": "InputManager",
+"language": "GDScript",
+"path": "res://Systems/NodeInput/nodeinput_input_manager.gd"
+}, {
+"base": "Reference",
+"class": "InputSingleToDouble",
+"language": "GDScript",
+"path": "res://Systems/NodeInput/Values/nodeinput_single_to_double.gd"
+}, {
+"base": "NodeInput",
+"class": "InputSource",
+"language": "GDScript",
+"path": "res://Systems/NodeInput/Sources/nodeinput_source.gd"
+}, {
+"base": "NodeInput",
+"class": "InputValue",
+"language": "GDScript",
+"path": "res://Systems/NodeInput/Values/nodeinput_value.gd"
+}, {
+"base": "InputValue",
+"class": "InputVector",
+"language": "GDScript",
+"path": "res://Systems/NodeInput/Values/nodeinput_vector_value.gd"
+}, {
+"base": "CameraBehaviour",
+"class": "LerpCameraBehaviour",
+"language": "GDScript",
+"path": "res://Systems/BehaviourCamera/Behaviours/lerp_behaviour.gd"
+}, {
+"base": "CameraBehaviour",
+"class": "LookCameraBehaviour",
+"language": "GDScript",
+"path": "res://Systems/BehaviourCamera/Behaviours/look_behaviour.gd"
+}, {
+"base": "Node",
+"class": "NodeInput",
+"language": "GDScript",
+"path": "res://Systems/NodeInput/nodeinput_category.gd"
+}, {
+"base": "CameraBehaviour",
+"class": "OrbitCameraBehaviour",
+"language": "GDScript",
+"path": "res://Systems/BehaviourCamera/Behaviours/orbit_behaviour.gd"
+}, {
+"base": "Node",
+"class": "PhysicsEventScheduler",
+"language": "GDScript",
+"path": "res://Systems/NodeEvents/physics_event_scheduler.gd"
+}, {
+"base": "KinematicBody",
+"class": "PlayerEntity",
+"language": "GDScript",
+"path": "res://Scenes/Engine/Player/player_entity.gd"
+}, {
+"base": "Reference",
+"class": "QueuedVibration",
+"language": "GDScript",
+"path": "res://Systems/NodeVibe/queued_vibration.gd"
+}, {
+"base": "Node",
+"class": "ScheduledEvent",
+"language": "GDScript",
+"path": "res://Systems/NodeEvents/scheduled_event.gd"
+}, {
+"base": "CameraBehaviour",
+"class": "SmoothDampCameraBehaviour",
+"language": "GDScript",
+"path": "res://Systems/BehaviourCamera/Behaviours/smooth_damp_behaviour.gd"
+}, {
+"base": "Node",
+"class": "SoundRandomizer",
+"language": "GDScript",
+"path": "res://Systems/UncutAudio/sound_randomizer.gd"
+}, {
+"base": "CameraBehaviour",
+"class": "StillCameraBehaviour",
+"language": "GDScript",
+"path": "res://Systems/BehaviourCamera/Behaviours/still_behaviour.gd"
+}, {
+"base": "Node",
+"class": "TimedEvent",
+"language": "GDScript",
+"path": "res://Systems/NodeEvents/timed_event.gd"
+}, {
+"base": "Listener2D",
+"class": "UncutAudioListener2D",
+"language": "GDScript",
+"path": "res://Systems/UncutAudio/uncut_audio_listener2d.gd"
+}, {
+"base": "Listener",
+"class": "UncutAudioListener3D",
+"language": "GDScript",
+"path": "res://Systems/UncutAudio/uncut_audio_listener3d.gd"
+}, {
+"base": "AudioStreamPlayer",
+"class": "UncutAudioPlayer",
+"language": "GDScript",
+"path": "res://Systems/UncutAudio/uncut_audio_player.gd"
+}, {
+"base": "AudioStreamPlayer2D",
+"class": "UncutAudioPlayer2D",
+"language": "GDScript",
+"path": "res://Systems/UncutAudio/uncut_audio_player2d.gd"
+}, {
+"base": "AudioStreamPlayer3D",
+"class": "UncutAudioPlayer3D",
+"language": "GDScript",
+"path": "res://Systems/UncutAudio/uncut_audio_player3d.gd"
+}, {
+"base": "CameraBehaviour",
+"class": "WatchCameraBehaviour",
+"language": "GDScript",
+"path": "res://Systems/BehaviourCamera/Behaviours/watch_behaviour.gd"
+} ]
+_global_script_class_icons={
+"AnimationController": "",
+"AutoCameraBehaviour": "",
+"BehaviourCamera": "",
+"CameraBehaviour": "",
+"Controllable": "",
+"EventScheduler": "",
+"InputAxis": "",
+"InputAxis2": "",
+"InputBool": "",
+"InputButton": "",
+"InputClick": "",
+"InputCursor": "",
+"InputFloat": "",
+"InputHalfToDouble": "",
+"InputHalfToSingle": "",
+"InputKey": "",
+"InputManager": "",
+"InputSingleToDouble": "",
+"InputSource": "",
+"InputValue": "",
+"InputVector": "",
+"LerpCameraBehaviour": "",
+"LookCameraBehaviour": "",
+"NodeInput": "res://Systems/NodeInput/Icons/nodeinput_controller.svg",
+"OrbitCameraBehaviour": "",
+"PhysicsEventScheduler": "",
+"PlayerEntity": "",
+"QueuedVibration": "",
+"ScheduledEvent": "",
+"SmoothDampCameraBehaviour": "",
+"SoundRandomizer": "",
+"StillCameraBehaviour": "",
+"TimedEvent": "",
+"UncutAudioListener2D": "",
+"UncutAudioListener3D": "",
+"UncutAudioPlayer": "",
+"UncutAudioPlayer2D": "",
+"UncutAudioPlayer3D": "",
+"WatchCameraBehaviour": ""
+}
+
+[application]
+
+config/name="sordplae"
+run/main_scene="res://Scenes/action.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+AudioManager="*res://Systems/UncutAudio/uncut_audio_manager.gd"
+VibeManager="*res://Systems/NodeVibe/node_vibe_system.gd"
+
+[debug]
+
+settings/fps/force_fps=25
+
+[display]
+
+window/size/width=1280
+window/size/height=960
+
+[gui]
+
+common/drop_mouse_on_gui_input_disabled=true
+
+[physics]
+
+common/physics_fps=25
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+quality/shading/force_vertex_shading=true
+quality/shading/force_lambert_over_burley=true
+quality/shading/force_blinn_over_ggx=true
+quality/filters/anisotropic_filter_level=1
+quality/depth/hdr=false
+environment/default_environment="res://default_env.tres"

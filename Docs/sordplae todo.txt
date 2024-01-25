@@ -1,0 +1,6 @@
+-code slope movement based on reddit post, using Move node
+	-Analog stick Vector2
+		-angle() for direction, we can add or subtract (not sure yet) camera y rotation for camera-based movement
+			-rotate Vector3.forward based on this, use with move_and_slide_and_snap()
+		-length() for movement strength (might be able to add this as a variable to input stored during the deadzone stuff?
+			-multiply this and movement speed by the direction vector

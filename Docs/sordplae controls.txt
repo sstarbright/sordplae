@@ -1,0 +1,8 @@
+Stick - Move
+Hind Button - Focus
+Shoulder - Interact
+X Button - Attack
+Y Button - Jump
+Arrow Up - Perspective
+Arrow Left/Right - Switch Item
+Arrow Down - Use Item

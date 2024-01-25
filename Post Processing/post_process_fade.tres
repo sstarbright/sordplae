@@ -1,0 +1,159 @@
+[gd_resource type="VisualShader" load_steps=13 format=2]
+
+[sub_resource type="VisualShaderNodeInput" id=13]
+input_name = "screen_uv"
+
+[sub_resource type="VisualShaderNodeColorUniform" id=14]
+uniform_name = "fade_color"
+default_value_enabled = true
+default_value = Color( 0, 0, 0, 1 )
+
+[sub_resource type="VisualShaderNodeColorOp" id=15]
+operator = 4
+
+[sub_resource type="VisualShaderNodeVectorScalarMix" id=16]
+
+[sub_resource type="VisualShaderNodeScalarOp" id=17]
+default_input_values = [ 0, 0.5, 1, 0.5 ]
+operator = 1
+
+[sub_resource type="VisualShaderNodeScalarClamp" id=18]
+default_input_values = [ 0, 0.0, 1, 0.0, 2, 0.5 ]
+
+[sub_resource type="VisualShaderNodeScalarOp" id=19]
+default_input_values = [ 0, 0.0, 1, 2.0 ]
+operator = 2
+
+[sub_resource type="VisualShaderNodeVectorScalarMix" id=20]
+
+[sub_resource type="VisualShaderNodeScalarOp" id=21]
+default_input_values = [ 0, 0.0, 1, 2.0 ]
+operator = 2
+
+[sub_resource type="VisualShaderNodeScalarClamp" id=22]
+default_input_values = [ 0, 0.0, 1, 0.0, 2, 0.5 ]
+
+[sub_resource type="VisualShaderNodeTexture" id=1]
+source = 1
+
+[sub_resource type="VisualShaderNodeScalarUniform" id=6]
+uniform_name = "fade_amount"
+hint = 1
+default_value_enabled = true
+
+[resource]
+code = "shader_type canvas_item;
+uniform vec4 fade_color : hint_color = vec4(0.000000, 0.000000, 0.000000, 1.000000);
+uniform float fade_amount : hint_range(0, 1) = 0;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// ColorUniform:16
+	vec3 n_out16p0 = fade_color.rgb;
+	float n_out16p1 = fade_color.a;
+
+// Input:15
+	vec3 n_out15p0 = vec3(SCREEN_UV, 0.0);
+
+// Texture:3
+	vec3 n_out3p0;
+	float n_out3p1;
+	{
+		vec4 _tex_read = textureLod(SCREEN_TEXTURE, n_out15p0.xy, 0.0);
+		n_out3p0 = _tex_read.rgb;
+		n_out3p1 = _tex_read.a;
+	}
+
+// ColorOp:17
+	vec3 n_out17p0;
+	{
+		float base = n_out3p0.x;
+		float blend = n_out16p0.x;
+		if (base < 0.5) {
+			n_out17p0.x = 2.0 * base * blend;
+		} else {
+			n_out17p0.x = 1.0 - 2.0 * (1.0 - blend) * (1.0 - base);
+		}
+	}
+	{
+		float base = n_out3p0.y;
+		float blend = n_out16p0.y;
+		if (base < 0.5) {
+			n_out17p0.y = 2.0 * base * blend;
+		} else {
+			n_out17p0.y = 1.0 - 2.0 * (1.0 - blend) * (1.0 - base);
+		}
+	}
+	{
+		float base = n_out3p0.z;
+		float blend = n_out16p0.z;
+		if (base < 0.5) {
+			n_out17p0.z = 2.0 * base * blend;
+		} else {
+			n_out17p0.z = 1.0 - 2.0 * (1.0 - blend) * (1.0 - base);
+		}
+	}
+
+// ScalarUniform:8
+	float n_out8p0 = fade_amount;
+
+// VectorScalarMix:18
+	vec3 n_out18p0 = mix(n_out17p0, n_out3p0, n_out8p0);
+
+// ScalarClamp:24
+	float n_in24p1 = 0.00000;
+	float n_in24p2 = 0.50000;
+	float n_out24p0 = clamp(n_out8p0, n_in24p1, n_in24p2);
+
+// ScalarOp:23
+	float n_in23p1 = 2.00000;
+	float n_out23p0 = n_out24p0 * n_in23p1;
+
+// VectorScalarMix:22
+	vec3 n_out22p0 = mix(n_out16p0, n_out18p0, n_out23p0);
+
+// Output:0
+	COLOR.rgb = n_out22p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -991.971, 177.566 )
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2( 1400, 100 )
+nodes/fragment/3/node = SubResource( 1 )
+nodes/fragment/3/position = Vector2( -640, 60 )
+nodes/fragment/8/node = SubResource( 6 )
+nodes/fragment/8/position = Vector2( -1000, 520 )
+nodes/fragment/15/node = SubResource( 13 )
+nodes/fragment/15/position = Vector2( -980, 120 )
+nodes/fragment/16/node = SubResource( 14 )
+nodes/fragment/16/position = Vector2( -980, 280 )
+nodes/fragment/17/node = SubResource( 15 )
+nodes/fragment/17/position = Vector2( -280, 220 )
+nodes/fragment/18/node = SubResource( 16 )
+nodes/fragment/18/position = Vector2( 420, 100 )
+nodes/fragment/19/node = SubResource( 17 )
+nodes/fragment/19/position = Vector2( -400, 480 )
+nodes/fragment/20/node = SubResource( 18 )
+nodes/fragment/20/position = Vector2( -160, 480 )
+nodes/fragment/21/node = SubResource( 19 )
+nodes/fragment/21/position = Vector2( 100, 480 )
+nodes/fragment/22/node = SubResource( 20 )
+nodes/fragment/22/position = Vector2( 800, 240 )
+nodes/fragment/23/node = SubResource( 21 )
+nodes/fragment/23/position = Vector2( 100, 640 )
+nodes/fragment/24/node = SubResource( 22 )
+nodes/fragment/24/position = Vector2( -160, 640 )
+nodes/fragment/connections = PoolIntArray( 15, 0, 3, 0, 3, 0, 17, 0, 16, 0, 17, 1, 3, 0, 18, 1, 17, 0, 18, 0, 8, 0, 19, 0, 19, 0, 20, 0, 20, 0, 21, 0, 18, 0, 22, 1, 16, 0, 22, 0, 22, 0, 0, 0, 24, 0, 23, 0, 8, 0, 24, 0, 23, 0, 22, 2, 8, 0, 18, 2 )

@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Systems/NodeInput/nodeinput_input_manager.gd" type="Script" id=1]
+[ext_resource path="res://Systems/NodeInput/Values/nodeinput_vector_value.gd" type="Script" id=2]
+[ext_resource path="res://Systems/NodeInput/Sources/nodeinput_axis2_source.gd" type="Script" id=3]
+[ext_resource path="res://Systems/NodeInput/Sources/nodeinput_button_source.gd" type="Script" id=4]
+
+[node name="PlayerControls" type="Node"]
+script = ExtResource( 1 )
+
+[node name="Move" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="LeftAnalog" type="Node" parent="Move"]
+script = ExtResource( 3 )
+deadzone = 0.25
+
+[node name="InputButton" type="Node" parent="Move"]
+script = ExtResource( 4 )
+button = 12
+
+[node name="InputButton2" type="Node" parent="Move"]
+script = ExtResource( 4 )
+contribution = 1
+button = 13
+
+[node name="InputButton3" type="Node" parent="Move"]
+script = ExtResource( 4 )
+contribution = 2
+button = 14
+
+[node name="InputButton4" type="Node" parent="Move"]
+script = ExtResource( 4 )
+contribution = 3
+button = 15

@@ -1,0 +1,79 @@
+[gd_resource type="VisualShader" load_steps=6 format=2]
+
+[sub_resource type="VisualShaderNodeVectorInterp" id=1]
+
+[sub_resource type="VisualShaderNodeColorUniform" id=2]
+output_port_for_preview = 0
+uniform_name = "FilterColor"
+default_value_enabled = true
+
+[sub_resource type="VisualShaderNodeInput" id=3]
+input_name = "screen_uv"
+
+[sub_resource type="VisualShaderNodeTexture" id=4]
+source = 1
+
+[sub_resource type="VisualShaderNodeScalarUniform" id=5]
+uniform_name = "FilterAmount"
+hint = 1
+default_value_enabled = true
+
+[resource]
+code = "shader_type canvas_item;
+uniform vec4 FilterColor : hint_color = vec4(1.000000, 1.000000, 1.000000, 1.000000);
+uniform float FilterAmount : hint_range(0, 1) = 0;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Input:5
+	vec3 n_out5p0 = vec3(SCREEN_UV, 0.0);
+
+// Texture:6
+	vec3 n_out6p0;
+	float n_out6p1;
+	{
+		vec4 _tex_read = textureLod(SCREEN_TEXTURE, n_out5p0.xy, 0.0);
+		n_out6p0 = _tex_read.rgb;
+		n_out6p1 = _tex_read.a;
+	}
+
+// ColorUniform:4
+	vec3 n_out4p0 = FilterColor.rgb;
+	float n_out4p1 = FilterColor.a;
+
+// ScalarUniform:7
+	float n_out7p0 = FilterAmount;
+
+// VectorMix:3
+	vec3 n_out3p0 = mix(n_out6p0, n_out4p0, vec3(n_out7p0));
+
+// Output:0
+	COLOR.rgb = n_out3p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -455.938, 241.123 )
+mode = 1
+flags/light_only = false
+nodes/fragment/3/node = SubResource( 1 )
+nodes/fragment/3/position = Vector2( -60, 140 )
+nodes/fragment/4/node = SubResource( 2 )
+nodes/fragment/4/position = Vector2( -500, 260 )
+nodes/fragment/5/node = SubResource( 3 )
+nodes/fragment/5/position = Vector2( -680, 140 )
+nodes/fragment/6/node = SubResource( 4 )
+nodes/fragment/6/position = Vector2( -360, 80 )
+nodes/fragment/7/node = SubResource( 5 )
+nodes/fragment/7/position = Vector2( -480, 640 )
+nodes/fragment/connections = PoolIntArray( 4, 0, 3, 1, 5, 0, 6, 0, 6, 0, 3, 0, 7, 0, 3, 2, 3, 0, 0, 0 )

@@ -1,0 +1,204 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://Post Processing/post_process_downscale.tres" type="Shader" id=1]
+[ext_resource path="res://Post Processing/post_process_blur.tres" type="Shader" id=2]
+[ext_resource path="res://Post Processing/post_process_interlacing.tres" type="Shader" id=3]
+[ext_resource path="res://Post Processing/post_process_sharpen.tres" type="Shader" id=4]
+[ext_resource path="res://Post Processing/post_process_colorbleed.tres" type="Shader" id=6]
+[ext_resource path="res://Post Processing/post_process_hsv.tres" type="Shader" id=7]
+[ext_resource path="res://Post Processing/post_process_colorfilter.tres" type="Shader" id=8]
+[ext_resource path="res://Post Processing/post_process_noise.tres" type="Shader" id=9]
+
+[sub_resource type="ShaderMaterial" id=30]
+shader = ExtResource( 1 )
+shader_param/amount = 240
+shader_param/frame_cap = 0.02
+
+[sub_resource type="ShaderMaterial" id=31]
+shader = ExtResource( 1 )
+shader_param/amount = 240
+shader_param/frame_cap = 0.02
+
+[sub_resource type="ShaderMaterial" id=33]
+shader = ExtResource( 8 )
+shader_param/FilterColor = Color( 0.564706, 0, 1, 1 )
+shader_param/FilterAmount = 0.172
+
+[sub_resource type="ShaderMaterial" id=34]
+shader = ExtResource( 9 )
+shader_param/colored = false
+shader_param/color_amount = 1.3
+shader_param/grain_amount = 0.025
+shader_param/grain_size = 10.0
+shader_param/lum_amount = 0.033
+
+[sub_resource type="ShaderMaterial" id=25]
+shader = ExtResource( 2 )
+shader_param/blur_type = 0
+shader_param/blur_amount = 4
+shader_param/blur_radius = 1.0
+shader_param/blur_direction = Vector2( 1, 1 )
+
+[sub_resource type="ShaderMaterial" id=32]
+shader = ExtResource( 7 )
+shader_param/h = 1.0
+shader_param/s = 0.756
+shader_param/v = 0.8
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = ExtResource( 6 )
+shader_param/blur_amount = 2.893
+shader_param/signal_quality = 0.0
+shader_param/bottom_strenth = 0.0
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = ExtResource( 4 )
+shader_param/sharpen_amount = 4.0
+
+[sub_resource type="ShaderMaterial" id=11]
+shader = ExtResource( 3 )
+shader_param/screen_resolution = 480.0
+shader_param/amplitude_divisor = 2160.0
+shader_param/wavelength_divisor = 244.204
+shader_param/frequency = 0.0094
+
+[sub_resource type="ShaderMaterial" id=27]
+shader = ExtResource( 4 )
+shader_param/sharpen_amount = 0.172
+
+[sub_resource type="ShaderMaterial" id=28]
+shader = ExtResource( 3 )
+shader_param/screen_resolution = 480.0
+shader_param/amplitude_divisor = 2160.0
+shader_param/wavelength_divisor = 244.204
+shader_param/frequency = 0.0094
+
+[node name="NTSCFilter" type="Control"]
+margin_right = 3.717
+
+[node name="Downscale" type="BackBufferCopy" parent="."]
+material = SubResource( 30 )
+position = Vector2( 640, 480 )
+scale = Vector2( 6.4, 4.8 )
+copy_mode = 2
+
+[node name="Downscale" type="ColorRect" parent="Downscale"]
+material = SubResource( 31 )
+margin_left = -100.0
+margin_top = -100.0
+margin_right = 100.0
+margin_bottom = 100.0
+
+[node name="Colorfilter" type="BackBufferCopy" parent="."]
+position = Vector2( 640, 480 )
+scale = Vector2( 6.4, 4.8 )
+copy_mode = 2
+
+[node name="Colorfilter" type="ColorRect" parent="Colorfilter"]
+material = SubResource( 33 )
+margin_left = -100.0
+margin_top = -100.0
+margin_right = 100.0
+margin_bottom = 100.0
+
+[node name="Noise" type="BackBufferCopy" parent="."]
+position = Vector2( 640, 480 )
+scale = Vector2( 6.4, 4.8 )
+copy_mode = 2
+
+[node name="Noise" type="ColorRect" parent="Noise"]
+material = SubResource( 34 )
+margin_left = -100.0
+margin_top = -100.0
+margin_right = 100.0
+margin_bottom = 100.0
+
+[node name="Blur" type="BackBufferCopy" parent="."]
+position = Vector2( 640, 480 )
+scale = Vector2( 6.4, 4.8 )
+copy_mode = 2
+
+[node name="Blur" type="ColorRect" parent="Blur"]
+material = SubResource( 25 )
+margin_left = -100.0
+margin_top = -100.0
+margin_right = 100.0
+margin_bottom = 100.0
+
+[node name="HSV" type="BackBufferCopy" parent="."]
+light_mask = 0
+position = Vector2( 640, 480 )
+scale = Vector2( 6.4, 4.8 )
+copy_mode = 2
+
+[node name="HSV" type="ColorRect" parent="HSV"]
+material = SubResource( 32 )
+margin_left = -100.0
+margin_top = -100.0
+margin_right = 100.0
+margin_bottom = 100.0
+
+[node name="Colorbleed" type="BackBufferCopy" parent="."]
+position = Vector2( 640, 480 )
+scale = Vector2( 6.4, 4.8 )
+copy_mode = 2
+
+[node name="Colorbleed" type="ColorRect" parent="Colorbleed"]
+material = SubResource( 6 )
+margin_left = -100.0
+margin_top = -100.0
+margin_right = 100.0
+margin_bottom = 100.0
+
+[node name="Desktop" type="Control" parent="."]
+
+[node name="Sharpen" type="BackBufferCopy" parent="Desktop"]
+position = Vector2( 640, 480 )
+scale = Vector2( 6.4, 4.8 )
+copy_mode = 2
+
+[node name="Sharpen" type="ColorRect" parent="Desktop/Sharpen"]
+material = SubResource( 7 )
+margin_left = -100.0
+margin_top = -100.0
+margin_right = 100.0
+margin_bottom = 100.0
+
+[node name="Interlacing" type="BackBufferCopy" parent="Desktop"]
+position = Vector2( 640, 480 )
+scale = Vector2( 6.4, 4.8 )
+copy_mode = 2
+
+[node name="Interlacing" type="ColorRect" parent="Desktop/Interlacing"]
+material = SubResource( 11 )
+margin_left = -100.0
+margin_top = -100.0
+margin_right = 100.0
+margin_bottom = 100.0
+
+[node name="Web" type="Control" parent="."]
+visible = false
+
+[node name="Sharpen" type="BackBufferCopy" parent="Web"]
+position = Vector2( 640, 480 )
+scale = Vector2( 6.4, 4.8 )
+copy_mode = 2
+
+[node name="Sharpen" type="ColorRect" parent="Web/Sharpen"]
+material = SubResource( 27 )
+margin_left = -100.0
+margin_top = -100.0
+margin_right = 100.0
+margin_bottom = 100.0
+
+[node name="Interlacing" type="BackBufferCopy" parent="Web"]
+position = Vector2( 640, 480 )
+scale = Vector2( 6.4, 4.8 )
+copy_mode = 2
+
+[node name="Interlacing" type="ColorRect" parent="Web/Interlacing"]
+material = SubResource( 28 )
+margin_left = -100.0
+margin_top = -100.0
+margin_right = 100.0
+margin_bottom = 100.0
