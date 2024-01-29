@@ -5,6 +5,7 @@ var target
 var targ_offset
 var cam_offset
 var rotation
+var target_rotation
 var rotation_offset
 var target_delta
 const right_angle = PI/2
@@ -22,7 +23,9 @@ func start_behaviour(camera_target, target_offset, camera_offset, camera_rotatio
 
 func update_behaviour(_delta):
 	target_delta = target.translation - last_target_position
+	target_delta.y = 0.0
 	rotation = wrapf(rotation - sin(Vector2(target_delta.x, target_delta.z).rotated(right_angle+parent.rotation.y).angle())*turn_rotation_speed*target_delta.length_squared(), 0.0, TAU)
 	parent.transform = Transform.IDENTITY.translated(target.translation+targ_offset.rotated(Vector3.UP, rotation)).looking_at(target.translation, Vector3.UP).translated(cam_offset)
 	parent.rotation.x += rotation_offset
 	last_target_position = target.translation
+	last_target_position.y = 0.0

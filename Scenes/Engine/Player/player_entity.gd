@@ -2,6 +2,14 @@ class_name PlayerEntity
 extends KinematicBody
 
 onready var player_model = get_node("Model") as AnimationController
+var move_delta = Vector3.ZERO
+const air_move_ratio = 5.0
+const gravity_constant = 240.0
+var gravity = 0.0
+export var gravity_acceleration = 1.0
+export var snap_length = 0.2
+var snap = Vector3.ZERO
+var floor_normal = Vector3.UP
 
 func _ready():
 	player_model.animation_player.set_blend_time("Idle", "Walk", 0.25)
@@ -14,3 +22,15 @@ func _ready():
 
 func update_animation_state(state = "Idle", speed = 1.0):
 	player_model.play_animation(state, speed)
+
+func _physics_process(delta):
+	move_and_slide_with_snap(move_delta+(gravity*-floor_normal*delta), snap, Vector3.UP)
+	if is_on_floor():
+		gravity = 0.0
+		floor_normal = get_floor_normal()
+		snap = -floor_normal * snap_length
+	else:
+		gravity = move_toward(gravity, gravity_constant, delta*gravity_acceleration)
+		move_delta = move_delta/air_move_ratio
+		floor_normal = Vector3.UP
+		snap = Vector3.ZERO

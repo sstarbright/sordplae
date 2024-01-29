@@ -90,6 +90,7 @@ margin_right = 100.0
 margin_bottom = 100.0
 
 [node name="Colorfilter" type="BackBufferCopy" parent="."]
+visible = false
 position = Vector2( 640, 480 )
 scale = Vector2( 6.4, 4.8 )
 copy_mode = 2

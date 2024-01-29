@@ -265,6 +265,8 @@ settings/fps/force_fps=40
 
 window/size/width=1280
 window/size/height=960
+window/stretch/mode="viewport"
+window/stretch/aspect="keep_width"
 
 [gui]
 
@@ -278,7 +280,6 @@ common/enable_pause_aware_picking=true
 [rendering]
 
 quality/driver/driver_name="GLES2"
-quality/shading/force_vertex_shading=true
 quality/shading/force_lambert_over_burley=true
 quality/shading/force_blinn_over_ggx=true
 quality/filters/anisotropic_filter_level=1
