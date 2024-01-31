@@ -30,5 +30,5 @@ func _physics_process(delta):
 			player_entity.move_delta = last_move_delta*delta
 	else:
 		player_entity.update_animation_state("Idle", 1.0)
-		last_move_delta = last_move_delta.move_toward(Vector3(move_vector.x, 0.0, move_vector.y)*move_speed, delta*move_speed)
+		last_move_delta = last_move_delta.move_toward(Vector3(move_vector.x, 0.0, move_vector.y)*air_move_speed, delta*move_speed)
 		player_entity.move_delta = last_move_delta*delta

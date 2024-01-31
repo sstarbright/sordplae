@@ -10,9 +10,9 @@ func _ready():
 
 func call_warp(warp_id):
 	if warp_id < warps.size():
-		EngineData.current_character.global_translation = warps[warp_id].global_translation
-		camera.auto_behaviour.last_target_position = EngineData.current_character.global_translation
-		camera.auto_behaviour.target_position = EngineData.current_character.global_translation
-		camera.auto_behaviour.target_y = EngineData.current_character.global_translation.y
+		EngineData.active_character.global_translation = warps[warp_id].global_translation
+		camera.auto_behaviour.last_target_position = EngineData.active_character.global_translation
+		camera.auto_behaviour.target_position = EngineData.active_character.global_translation
+		camera.auto_behaviour.target_y = EngineData.active_character.global_translation.y
 		camera.auto_behaviour.current_y = camera.auto_behaviour.target_y
 		camera.auto_behaviour.update_behaviour(0.0)

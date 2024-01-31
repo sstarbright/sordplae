@@ -1,10 +1,10 @@
 class_name PlayerEntity
 extends KinematicBody
 
+export(Resource) var entity_data = EntityData.new()
 onready var player_model = get_node("Model") as AnimationController
 onready var player_camera = get_tree().root.get_camera() as BehaviourCamera
 var move_delta = Vector3.ZERO
-const air_move_ratio = 5.0
 export var max_gravity = 220.0
 var gravity = 0.0
 export var gravity_acceleration = 1.0
@@ -13,7 +13,7 @@ var snap = Vector3.ZERO
 var floor_normal = Vector3.UP
 
 func _ready():
-	EngineData.current_character = self
+	EngineData.switch_active_character(self)
 	player_model.animation_player.set_blend_time("Idle", "Walk", 0.25)
 	player_model.animation_player.set_blend_time("Idle", "Run", 0.25)
 	player_model.animation_player.set_blend_time("Walk", "Idle", 0.25)
@@ -35,6 +35,6 @@ func _physics_process(delta):
 	else:
 		player_camera.auto_behaviour.track_y = false
 		gravity = move_toward(gravity, max_gravity, delta*gravity_acceleration)
-		move_delta = move_delta/air_move_ratio
+		move_delta = move_delta
 		floor_normal = Vector3.UP
 		snap = Vector3.ZERO
