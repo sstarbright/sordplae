@@ -4,6 +4,7 @@ const angle_offset = PI/2
 
 onready var player_entity = get_parent() as PlayerEntity
 export var move_speed = 0.25
+export var air_move_speed = 0.25
 export var move_sensitivity = 2.0
 export var move_deceleration = 1.0
 export var run_threshold = 1.0
@@ -21,11 +22,13 @@ func _physics_process(delta):
 			else:
 				player_entity.update_animation_state("Walk", (move_strength+0.25)*4.5)
 			player_entity.player_model.rotation.y = angle_offset-move_vector.angle()
-			last_move_delta = Vector3(move_vector.x, 0.0, move_vector.y)*move_speed*delta
-			player_entity.move_delta = last_move_delta
+			last_move_delta = Vector3(move_vector.x, 0.0, move_vector.y)*move_speed
+			player_entity.move_delta = last_move_delta*delta
 		else:
 			player_entity.update_animation_state("Idle", 1.0)
 			last_move_delta = Vector3.ZERO
-			player_entity.move_delta = last_move_delta
+			player_entity.move_delta = last_move_delta*delta
 	else:
-		player_entity.move_delta = last_move_delta
+		player_entity.update_animation_state("Idle", 1.0)
+		last_move_delta = last_move_delta.move_toward(Vector3(move_vector.x, 0.0, move_vector.y)*move_speed, delta*move_speed)
+		player_entity.move_delta = last_move_delta*delta

@@ -7,4 +7,4 @@ func _ready():
 	var _connect = connect("on_down", self, "on_press")
 
 func on_press():
-	player_camera.current_behaviour.rotation = player_model.rotation.y + PI
+	player_camera.auto_behaviour.rotation = player_model.rotation.y + PI

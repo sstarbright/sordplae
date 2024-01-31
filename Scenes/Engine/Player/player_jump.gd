@@ -1,8 +1,8 @@
 extends InputBool
 
 onready var player_entity = get_parent() as PlayerEntity
-const jump_strength = -120
-const coyote_time = 0.25
+export var jump_strength = -140
+const coyote_time = 0.35
 var coyote_time_left = coyote_time
 
 func _ready():
