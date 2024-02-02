@@ -6,3 +6,4 @@
 script = ExtResource( 1 )
 max_health = 12
 health = 12
+invulnerable_time = 1.0

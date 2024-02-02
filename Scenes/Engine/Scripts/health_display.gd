@@ -4,7 +4,7 @@ func _ready():
 	var _return = EngineData.connect("active_character_changed", self, "switch_active_character")
 
 func switch_active_character(previous_character, new_character):
-	if previous_character && previous_character.entity_data:
+	if is_instance_valid(previous_character) && previous_character.entity_data:
 		previous_character.entity_data.disconnect("health_changed", self)
 	if new_character && new_character.entity_data:
 		new_character.entity_data.connect("health_changed", self, "health_changed")

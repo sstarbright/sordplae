@@ -34,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Systems/NodeInput/nodeinput_controllable.gd"
 }, {
+"base": "Reference",
+"class": "DamageValue",
+"language": "GDScript",
+"path": "res://Scenes/Engine/Scripts/Reference/damage_value.gd"
+}, {
 "base": "Resource",
 "class": "EntityData",
 "language": "GDScript",
@@ -215,6 +220,7 @@ _global_script_class_icons={
 "BehaviourCamera": "",
 "CameraBehaviour": "",
 "Controllable": "",
+"DamageValue": "",
 "EntityData": "",
 "EventScheduler": "",
 "InputAxis": "",
@@ -282,6 +288,14 @@ common/drop_mouse_on_gui_input_disabled=true
 [layer_names]
 
 3d_physics/layer_1="Level Geometry"
+3d_physics/layer_2="Player"
+
+[locale]
+
+translations=PoolStringArray( "res://Translations/text.en.translation" )
+translation_remaps={
+}
+locale_filter=[ 1, [ "en_US" ] ]
 
 [physics]
 
