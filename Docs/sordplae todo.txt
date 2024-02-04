@@ -1,1 +1,7 @@
--rework test area to be a wide flat plane, with slopes and stuff for testing
+-store full translation text as an array of strings split by newline
+-set percent_visible = 0.0
+-add first string
+-visible tween until percent_visible = 1.0
+-when continuing, set visible_characters to the total character count, then add the next string
+-visible tween until percent_visible = 1.0
+-repeat until every string has been covered

@@ -74,7 +74,6 @@ shader_param/wavelength_divisor = 244.204
 shader_param/frequency = 0.0094
 
 [node name="NTSCFilter" type="Control"]
-margin_right = 3.717
 
 [node name="Downscale" type="BackBufferCopy" parent="."]
 material = SubResource( 30 )

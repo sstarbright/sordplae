@@ -13,7 +13,6 @@ var snap = Vector3.ZERO
 var floor_normal = Vector3.UP
 
 func _ready():
-	print(tr("DEBUG1"))
 	EngineData.switch_active_character(self)
 	get_tree().root.get_camera().set_auto(self, Vector3(0.0, 0.0, 2.556), Vector3(0.0, 2.272, 0.0), deg2rad(-20))
 	var visible_tween = get_tree().create_tween()

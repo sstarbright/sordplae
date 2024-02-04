@@ -179,6 +179,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Systems/BehaviourCamera/Behaviours/still_behaviour.gd"
 }, {
+"base": "Control",
+"class": "TextBox",
+"language": "GDScript",
+"path": "res://Scenes/Engine/Scripts/text_box.gd"
+}, {
 "base": "Node",
 "class": "TimedEvent",
 "language": "GDScript",
@@ -249,6 +254,7 @@ _global_script_class_icons={
 "SmoothDampCameraBehaviour": "",
 "SoundRandomizer": "",
 "StillCameraBehaviour": "",
+"TextBox": "",
 "TimedEvent": "",
 "UncutAudioListener2D": "",
 "UncutAudioListener3D": "",
@@ -262,13 +268,14 @@ _global_script_class_icons={
 
 config/name="sordplae"
 run/main_scene="res://Scenes/action.tscn"
+boot_splash/show_image=false
 config/icon="res://icon.png"
 
 [autoload]
 
+EngineData="*res://Scenes/Engine/engine_data.gd"
 AudioManager="*res://Systems/UncutAudio/uncut_audio_manager.gd"
 VibeManager="*res://Systems/NodeVibe/node_vibe_system.gd"
-EngineData="*res://Scenes/Engine/engine_data.gd"
 
 [debug]
 
@@ -287,6 +294,8 @@ common/drop_mouse_on_gui_input_disabled=true
 
 [layer_names]
 
+2d_render/layer_1="All"
+2d_render/layer_2="TextBoxAlpha"
 3d_physics/layer_1="Level Geometry"
 3d_physics/layer_2="Player"
 

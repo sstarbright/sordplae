@@ -1,0 +1,83 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Fonts/Forque-M3An.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scenes/Engine/Scripts/text_box.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/Engine/Scripts/text_box_continue.gd" type="Script" id=3]
+[ext_resource path="res://Systems/NodeInput/Sources/nodeinput_button_source.gd" type="Script" id=4]
+[ext_resource path="res://Scenes/Engine/Scripts/continue_icon.gd" type="Script" id=5]
+
+[sub_resource type="Gradient" id=25]
+offsets = PoolRealArray( 0, 0.241294, 0.487562, 0.756219, 1 )
+colors = PoolColorArray( 0.508437, 0.0554768, 0.540039, 0.580392, 0.505882, 0.121569, 0.670588, 0.639216, 0.388235, 0.376471, 0.87451, 0.709804, 0.372549, 0.67451, 0.815686, 0.760784, 0.819608, 1, 0.994715, 0.729412 )
+
+[sub_resource type="GradientTexture2D" id=26]
+gradient = SubResource( 25 )
+fill_from = Vector2( 0, 1 )
+fill_to = Vector2( 0, 0 )
+
+[sub_resource type="DynamicFont" id=20]
+size = 87
+outline_size = 10
+outline_color = Color( 0.145098, 0.0509804, 0.611765, 1 )
+extra_spacing_char = 3
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=21]
+default_font = SubResource( 20 )
+
+[sub_resource type="PrismMesh" id=27]
+size = Vector3( 100, 40, 2 )
+
+[sub_resource type="Gradient" id=28]
+offsets = PoolRealArray( 0.738806, 0.895522 )
+colors = PoolColorArray( 1, 0.658493, 0.0845454, 1, 1, 0.295455, 0.295455, 1 )
+
+[sub_resource type="GradientTexture2D" id=29]
+gradient = SubResource( 28 )
+
+[node name="TextBox" type="Control"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 2 )
+show_time = 0.4
+visible_time = 80.0
+show_type = 10
+
+[node name="Back" type="TextureRect" parent="."]
+margin_left = 25.0
+margin_top = 587.0
+margin_right = 1253.0
+margin_bottom = 932.0
+texture = SubResource( 26 )
+expand = true
+stretch_mode = 1
+
+[node name="Text" type="RichTextLabel" parent="."]
+light_mask = 3
+margin_left = 43.0
+margin_top = 607.0
+margin_right = 1241.0
+margin_bottom = 878.0
+theme = SubResource( 21 )
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+scroll_active = false
+
+[node name="Continue" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[node name="InputButton" type="Node" parent="Continue"]
+script = ExtResource( 4 )
+button = 4
+
+[node name="InputButton2" type="Node" parent="Continue"]
+script = ExtResource( 4 )
+button = 5
+
+[node name="ContinueIcon" type="MeshInstance2D" parent="."]
+visible = false
+position = Vector2( 631, 933 )
+mesh = SubResource( 27 )
+texture = SubResource( 29 )
+script = ExtResource( 5 )
+animation_time = 0.5
