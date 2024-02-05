@@ -73,8 +73,6 @@ func now_visible():
 		continue_icon.set_visible(true)
 		if displayed_string < dialogue_strings.size():
 			is_more_text = true
-		else:
-			print("NO MORE TEXT")
 
 func now_scrolled():
 	scroll_finished = true
@@ -82,10 +80,10 @@ func now_scrolled():
 		continue_icon.set_visible(true)
 		if displayed_string < dialogue_strings.size():
 			is_more_text = true
-		else:
-			print("NO MORE TEXT")
 
 func hide_text():
+	scroll_finished = false
+	visible_finished = false
 	if scroll_tween is SceneTreeTween && scroll_tween.is_valid():
 		scroll_tween.kill()
 	continue_icon.set_visible(false)
