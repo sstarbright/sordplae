@@ -1,13 +1,13 @@
 [gd_scene load_steps=20 format=2]
 
-[ext_resource path="res://Post Processing/post_process_downscale.tres" type="Shader" id=1]
-[ext_resource path="res://Post Processing/post_process_blur.tres" type="Shader" id=2]
-[ext_resource path="res://Post Processing/post_process_interlacing.tres" type="Shader" id=3]
-[ext_resource path="res://Post Processing/post_process_sharpen.tres" type="Shader" id=4]
-[ext_resource path="res://Post Processing/post_process_colorbleed.tres" type="Shader" id=6]
-[ext_resource path="res://Post Processing/post_process_hsv.tres" type="Shader" id=7]
-[ext_resource path="res://Post Processing/post_process_colorfilter.tres" type="Shader" id=8]
-[ext_resource path="res://Post Processing/post_process_noise.tres" type="Shader" id=9]
+[ext_resource path="res://PostProcessing/post_process_downscale.tres" type="Shader" id=1]
+[ext_resource path="res://PostProcessing/post_process_blur.tres" type="Shader" id=2]
+[ext_resource path="res://PostProcessing/post_process_interlacing.tres" type="Shader" id=3]
+[ext_resource path="res://PostProcessing/post_process_sharpen.tres" type="Shader" id=4]
+[ext_resource path="res://PostProcessing/post_process_colorbleed.tres" type="Shader" id=6]
+[ext_resource path="res://PostProcessing/post_process_hsv.tres" type="Shader" id=7]
+[ext_resource path="res://PostProcessing/post_process_colorfilter.tres" type="Shader" id=8]
+[ext_resource path="res://PostProcessing/post_process_noise.tres" type="Shader" id=9]
 
 [sub_resource type="ShaderMaterial" id=30]
 shader = ExtResource( 1 )

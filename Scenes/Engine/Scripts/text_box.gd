@@ -30,6 +30,7 @@ var scroll_tween
 var visible_finished = false
 var scroll_finished = true
 var is_more_text = false
+var close_on_finish = true
 onready var label = get_node("Text")
 onready var continue_icon = get_node("ContinueIcon")
 
@@ -38,8 +39,7 @@ signal text_finished
 func _ready():
 	rect_position.y = offscreen_pos
 
-func show_text(key, placeholders = []):
-	visible = true
+func show_text(key, placeholders = [], do_close_on_finish = true):
 	displayed_string = 0
 	var display_text = tr(key)
 	if placeholders.size() > 0:
@@ -55,14 +55,15 @@ func show_text(key, placeholders = []):
 	is_more_text = false
 	visible_finished = false
 	scroll_finished = true
-	
-	yield(get_tree(), "idle_frame")
+	close_on_finish = do_close_on_finish
 	
 	label.visible_characters = 0
 	if visible_tween is SceneTreeTween && visible_tween.is_valid():
 		visible_tween.kill()
 	visible_tween = get_tree().create_tween()
-	visible_tween.tween_property(label, "visible_characters", label.get_total_character_count(), visible_time/label.get_total_character_count())
+	if pause_mode == PAUSE_MODE_PROCESS:
+		visible_tween.set_pause_mode(SceneTreeTween.TWEEN_PAUSE_PROCESS)
+	visible_tween.tween_property(label, "visible_characters", label.text.length(), visible_time/label.text.length())
 	visible_tween.tween_callback(self, "now_visible")
 	label.get_v_scroll().value = 0.0
 	tween(0.0)
@@ -87,7 +88,7 @@ func hide_text():
 	if scroll_tween is SceneTreeTween && scroll_tween.is_valid():
 		scroll_tween.kill()
 	continue_icon.set_visible(false)
-	tween(offscreen_pos).tween_callback(self, "set_visible", [false])
+	tween(offscreen_pos).tween_callback(self, "queue_free")
 
 func tween(target):
 	var modified_show_time = show_time
@@ -95,6 +96,8 @@ func tween(target):
 		modified_show_time = show_tween.get_total_elapsed_time()
 		show_tween.kill()
 	show_tween = get_tree().create_tween()
+	if pause_mode == PAUSE_MODE_PROCESS:
+		show_tween.set_pause_mode(SceneTreeTween.TWEEN_PAUSE_PROCESS)
 	show_tween.tween_property(self, "rect_position:y", target, modified_show_time).set_trans(show_type)
 	return show_tween
 
@@ -116,14 +119,19 @@ func continue_text():
 			yield(get_tree(), "idle_frame")
 			
 			visible_tween = get_tree().create_tween()
+			if pause_mode == PAUSE_MODE_PROCESS:
+				visible_tween.set_pause_mode(SceneTreeTween.TWEEN_PAUSE_PROCESS)
 			visible_tween.tween_property(label, "visible_characters", label.get_total_character_count(), visible_time/label.get_total_character_count())
 			visible_tween.tween_callback(self, "now_visible")
 			scroll_tween = get_tree().create_tween()
+			if pause_mode == PAUSE_MODE_PROCESS:
+				scroll_tween.set_pause_mode(SceneTreeTween.TWEEN_PAUSE_PROCESS)
 			scroll_tween.tween_property(label.get_v_scroll(), "ratio", 1.0, scroll_time)
 			scroll_tween.tween_callback(self, "now_scrolled")
 		else:
+			if close_on_finish:
+				hide_text()
 			emit_signal("text_finished")
-			hide_text()
 	else:
 		if scroll_tween is SceneTreeTween && scroll_tween.is_valid():
 			scroll_tween.custom_step(scroll_time-scroll_tween.get_total_elapsed_time())

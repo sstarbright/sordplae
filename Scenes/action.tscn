@@ -103,11 +103,6 @@ rect_scale = Vector2( 5, 5 )
 text = "000000"
 script = ExtResource( 18 )
 
-[node name="Blank" type="ColorRect" parent="CanvasLayer"]
-margin_right = 1280.0
-margin_bottom = 960.0
-color = Color( 0, 0, 0, 1 )
-
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, -1.01452e-32, 2.78737e-32, 0, 0.939693, 0.34202, -2.96626e-32, -0.34202, 0.939693, 7.58176e-32, 2.27062, 2.556 )
 environment = ExtResource( 2 )
@@ -303,6 +298,7 @@ collision_layer = 0
 collision_mask = 2
 monitorable = false
 script = ExtResource( 19 )
+amount = 6
 type = 1
 
 [node name="CollisionShape" type="CollisionShape" parent="DamageAreas/Slam/Area"]

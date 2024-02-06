@@ -36,7 +36,6 @@ colors = PoolColorArray( 1, 0.658493, 0.0845454, 1, 1, 0.295455, 0.295455, 1 )
 gradient = SubResource( 28 )
 
 [node name="TextBox" type="Control"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 script = ExtResource( 2 )

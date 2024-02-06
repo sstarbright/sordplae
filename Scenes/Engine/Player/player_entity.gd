@@ -14,10 +14,10 @@ var floor_normal = Vector3.UP
 
 func _ready():
 	EngineData.switch_active_character(self)
+	EngineData.fade_in(1.0, 0.5, Color.black, 0.0, 1.0, true, EngineData.TargetLayers.SCREEN_EFFECTS)
 	get_tree().root.get_camera().set_auto(self, Vector3(0.0, 0.0, 2.556), Vector3(0.0, 2.272, 0.0), deg2rad(-20))
 	var visible_tween = get_tree().create_tween()
 	visible_tween.tween_interval(1.0)
-	visible_tween.tween_callback(get_tree().current_scene.get_node("CanvasLayer/Blank"), "set_visible", [false])
 	entity_data.reset()
 	entity_data.connect("health_empty", self, "kill")
 	player_model.animation_player.set_blend_time("Idle", "Walk", 0.25)
@@ -60,10 +60,4 @@ func set_vulnerable():
 	entity_data.invulnerable = false
 
 func kill():
-	var restart_tween = get_tree().create_tween()
-	get_tree().current_scene.get_node("CanvasLayer/Blank").visible = true
-	restart_tween.set_pause_mode(SceneTreeTween.TWEEN_PAUSE_PROCESS)
-	get_tree().set_pause(true)
-	restart_tween.tween_interval(0.0)
-	restart_tween.tween_callback(get_tree(), "set_pause", [false])
-	restart_tween.tween_callback(get_tree(), "reload_current_scene")
+	EngineData.reload_scene()
