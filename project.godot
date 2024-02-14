@@ -184,6 +184,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/Engine/Scripts/text_box.gd"
 }, {
+"base": "Control",
+"class": "TextBoxDisplay",
+"language": "GDScript",
+"path": "res://Scenes/Engine/Scripts/text_box_display.gd"
+}, {
 "base": "Node",
 "class": "TimedEvent",
 "language": "GDScript",
@@ -255,6 +260,7 @@ _global_script_class_icons={
 "SoundRandomizer": "",
 "StillCameraBehaviour": "",
 "TextBox": "",
+"TextBoxDisplay": "",
 "TimedEvent": "",
 "UncutAudioListener2D": "",
 "UncutAudioListener3D": "",

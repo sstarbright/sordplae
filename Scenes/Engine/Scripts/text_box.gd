@@ -21,13 +21,13 @@ var displayed_string = 0
 var text_size_limit
 const text_base_position = 607.0
 export var show_time = 1.0
-export var visible_time = 1.0
+export var reveal_time = 80.0
 export var scroll_time = 0.5
 export(TransitionType) var show_type
 var show_tween
-var visible_tween
+var reveal_tween
 var scroll_tween
-var visible_finished = false
+var reveal_finished = false
 var scroll_finished = true
 var is_more_text = false
 var close_on_finish = true
@@ -53,23 +53,23 @@ func show_text(key, placeholders = [], do_close_on_finish = true):
 	displayed_string = new_line_string
 	continue_icon.set_visible(false)
 	is_more_text = false
-	visible_finished = false
+	reveal_finished = false
 	scroll_finished = true
 	close_on_finish = do_close_on_finish
 	
 	label.visible_characters = 0
-	if visible_tween is SceneTreeTween && visible_tween.is_valid():
-		visible_tween.kill()
-	visible_tween = get_tree().create_tween()
+	if reveal_tween is SceneTreeTween && reveal_tween.is_valid():
+		reveal_tween.kill()
+	reveal_tween = get_tree().create_tween()
 	if pause_mode == PAUSE_MODE_PROCESS:
-		visible_tween.set_pause_mode(SceneTreeTween.TWEEN_PAUSE_PROCESS)
-	visible_tween.tween_property(label, "visible_characters", label.text.length(), visible_time/label.text.length())
-	visible_tween.tween_callback(self, "now_visible")
+		reveal_tween.set_pause_mode(SceneTreeTween.TWEEN_PAUSE_PROCESS)
+	reveal_tween.tween_property(label, "visible_characters", label.text.length(), reveal_time/label.text.length())
+	reveal_tween.tween_callback(self, "now_revealed")
 	label.get_v_scroll().value = 0.0
 	tween(0.0)
 
-func now_visible():
-	visible_finished = true
+func now_revealed():
+	reveal_finished = true
 	if scroll_finished:
 		continue_icon.set_visible(true)
 		if displayed_string < dialogue_strings.size():
@@ -77,14 +77,14 @@ func now_visible():
 
 func now_scrolled():
 	scroll_finished = true
-	if visible_finished:
+	if reveal_finished:
 		continue_icon.set_visible(true)
 		if displayed_string < dialogue_strings.size():
 			is_more_text = true
 
 func hide_text():
 	scroll_finished = false
-	visible_finished = false
+	reveal_finished = false
 	if scroll_tween is SceneTreeTween && scroll_tween.is_valid():
 		scroll_tween.kill()
 	continue_icon.set_visible(false)
@@ -102,12 +102,12 @@ func tween(target):
 	return show_tween
 
 func continue_text():
-	if scroll_finished && visible_finished:
+	if scroll_finished && reveal_finished:
 		if is_more_text:
 			continue_icon.set_visible(false)
 			is_more_text = false
 			scroll_finished = false
-			visible_finished = false
+			reveal_finished = false
 			label.text += "\n" + dialogue_strings[displayed_string]
 			
 			var new_line_string = displayed_string + 1
@@ -118,11 +118,11 @@ func continue_text():
 			
 			yield(get_tree(), "idle_frame")
 			
-			visible_tween = get_tree().create_tween()
+			reveal_tween = get_tree().create_tween()
 			if pause_mode == PAUSE_MODE_PROCESS:
-				visible_tween.set_pause_mode(SceneTreeTween.TWEEN_PAUSE_PROCESS)
-			visible_tween.tween_property(label, "visible_characters", label.get_total_character_count(), visible_time/label.get_total_character_count())
-			visible_tween.tween_callback(self, "now_visible")
+				reveal_tween.set_pause_mode(SceneTreeTween.TWEEN_PAUSE_PROCESS)
+			reveal_tween.tween_property(label, "visible_characters", label.get_total_character_count(), reveal_time/label.get_total_character_count())
+			reveal_tween.tween_callback(self, "now_revealed")
 			scroll_tween = get_tree().create_tween()
 			if pause_mode == PAUSE_MODE_PROCESS:
 				scroll_tween.set_pause_mode(SceneTreeTween.TWEEN_PAUSE_PROCESS)
@@ -135,5 +135,5 @@ func continue_text():
 	else:
 		if scroll_tween is SceneTreeTween && scroll_tween.is_valid():
 			scroll_tween.custom_step(scroll_time-scroll_tween.get_total_elapsed_time())
-		if visible_tween is SceneTreeTween && visible_tween.is_valid():
-			visible_tween.custom_step(visible_time-visible_tween.get_total_elapsed_time())
+		if reveal_tween is SceneTreeTween && reveal_tween.is_valid():
+			reveal_tween.custom_step(reveal_time-reveal_tween.get_total_elapsed_time())

@@ -15,11 +15,11 @@ var ntsc_filter
 var text_box
 var screen_fade
 
-enum TargetLayers {
-	VIEW_EFFECTS,
-	UI,
-	SCREEN_EFFECTS,
-	CANVAS
+enum {
+	LAYER_VIEW_EFFECTS,
+	LAYER_UI,
+	LAYER_SCREEN_EFFECTS,
+	LAYER_CANVAS
 }
 
 func switch_active_character(character):
@@ -54,7 +54,7 @@ func disconnect_text(signal_name, target, method):
 	else:
 		return false
 
-func fade_in(time = 1.0, delay = 0.0, color = Color.black, start = 0.0, end = 1.0, delete_after_fade = true, target_layer = TargetLayers.VIEW_EFFECTS):
+func fade_in(time = 1.0, delay = 0.0, color = Color.black, start = 0.0, end = 1.0, delete_after_fade = true, target_layer = LAYER_VIEW_EFFECTS):
 	if is_instance_valid(screen_fade):
 		start = screen_fade.fade_position
 		screen_fade.queue_free()
@@ -63,7 +63,7 @@ func fade_in(time = 1.0, delay = 0.0, color = Color.black, start = 0.0, end = 1.
 	screen_fade.fade_in(time, delay, color, start, end, delete_after_fade)
 	return screen_fade
 
-func fade_out(time = 1.0, delay = 0.0, color = Color.black, start = 1.0, end = 0.0, target_layer = TargetLayers.VIEW_EFFECTS):
+func fade_out(time = 1.0, delay = 0.0, color = Color.black, start = 1.0, end = 0.0, target_layer = LAYER_VIEW_EFFECTS):
 	if is_instance_valid(screen_fade):
 		start = screen_fade.fade_position
 		screen_fade.queue_free()
@@ -74,13 +74,13 @@ func fade_out(time = 1.0, delay = 0.0, color = Color.black, start = 1.0, end = 0
 
 func add_child_to_layer(target_layer, node, legible_unique_name=false):
 	match target_layer:
-		TargetLayers.VIEW_EFFECTS:
+		LAYER_VIEW_EFFECTS:
 			view_effects_layer.add_child(node, legible_unique_name)
-		TargetLayers.UI:
+		LAYER_UI:
 			ui_layer.add_child(node, legible_unique_name)
-		TargetLayers.SCREEN_EFFECTS:
+		LAYER_SCREEN_EFFECTS:
 			screen_effects_layer.add_child(node, legible_unique_name)
-		TargetLayers.CANVAS:
+		LAYER_CANVAS:
 			canvas_layer.add_child(node, legible_unique_name)
 
 func _ready():
@@ -112,6 +112,6 @@ func _ready():
 func reload_scene():
 	hide_text(true)
 	get_tree().set_pause(true)
-	yield(EngineData.fade_out(), "faded_out")
-	get_tree().reload_current_scene()
+	yield(EngineData.fade_out(1.0, 0.5, Color.black, 1.0, 0.0, LAYER_SCREEN_EFFECTS), "faded_out")
+	var _return = get_tree().reload_current_scene()
 	get_tree().set_pause(false)

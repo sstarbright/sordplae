@@ -1,5 +1,6 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=37 format=2]
 
+[ext_resource path="res://Scenes/Engine/Scripts/scene_with_ui.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/action_environment.tres" type="Environment" id=2]
 [ext_resource path="res://Scenes/Engine/Player/player_focus.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/Engine/Player/player_move.gd" type="Script" id=4]
@@ -16,7 +17,7 @@
 [ext_resource path="res://Systems/NodeInput/Sources/nodeinput_key_source.gd" type="Script" id=15]
 [ext_resource path="res://Scenes/Debug/Scripts/call_warp.gd" type="Script" id=16]
 [ext_resource path="res://Scenes/Engine/Player/player_data.tres" type="Resource" id=17]
-[ext_resource path="res://Scenes/Engine/Scripts/health_display.gd" type="Script" id=18]
+[ext_resource path="res://Scenes/Engine/NormalHealth.tscn" type="PackedScene" id=18]
 [ext_resource path="res://Scenes/Engine/Scripts/damage_area.gd" type="Script" id=19]
 [ext_resource path="res://Scenes/Debug/Scripts/test_apply_health.gd" type="Script" id=20]
 
@@ -91,17 +92,8 @@ material = SubResource( 17 )
 size = Vector3( 1, 1, 1 )
 
 [node name="Action" type="Spatial"]
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Health" type="Label" parent="CanvasLayer"]
-margin_left = 37.0
-margin_top = 33.0
-margin_right = 85.0
-margin_bottom = 47.0
-rect_scale = Vector2( 5, 5 )
-text = "000000"
-script = ExtResource( 18 )
+script = ExtResource( 1 )
+ui_elements = [ ExtResource( 18 ) ]
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, -1.01452e-32, 2.78737e-32, 0, 0.939693, 0.34202, -2.96626e-32, -0.34202, 0.939693, 7.58176e-32, 2.27062, 2.556 )

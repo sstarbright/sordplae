@@ -1,14 +1,15 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Fonts/Forque-M3An.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Scenes/Engine/Scripts/text_box.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/Engine/Scripts/text_box_continue.gd" type="Script" id=3]
 [ext_resource path="res://Systems/NodeInput/Sources/nodeinput_button_source.gd" type="Script" id=4]
 [ext_resource path="res://Scenes/Engine/Scripts/continue_icon.gd" type="Script" id=5]
+[ext_resource path="res://Scenes/Engine/TextBoxDisplay.tscn" type="PackedScene" id=6]
 
 [sub_resource type="Gradient" id=25]
 offsets = PoolRealArray( 0, 0.241294, 0.487562, 0.756219, 1 )
-colors = PoolColorArray( 0.508437, 0.0554768, 0.540039, 0.580392, 0.505882, 0.121569, 0.670588, 0.639216, 0.388235, 0.376471, 0.87451, 0.709804, 0.372549, 0.67451, 0.815686, 0.760784, 0.819608, 1, 0.994715, 0.729412 )
+colors = PoolColorArray( 0.56233, 0, 0.601563, 0.580392, 0.528228, 0.0289917, 0.742188, 0.639216, 0.309171, 0.294159, 0.929688, 0.709804, 0.213959, 0.722963, 0.960938, 0.760784, 0.460938, 1, 0.949463, 0.729412 )
 
 [sub_resource type="GradientTexture2D" id=26]
 gradient = SubResource( 25 )
@@ -39,8 +40,7 @@ gradient = SubResource( 28 )
 margin_right = 40.0
 margin_bottom = 40.0
 script = ExtResource( 2 )
-show_time = 0.4
-visible_time = 80.0
+show_time = 0.6
 show_type = 10
 
 [node name="Back" type="TextureRect" parent="."]
@@ -74,9 +74,14 @@ script = ExtResource( 4 )
 button = 5
 
 [node name="ContinueIcon" type="MeshInstance2D" parent="."]
-visible = false
 position = Vector2( 631, 933 )
 mesh = SubResource( 27 )
 texture = SubResource( 29 )
 script = ExtResource( 5 )
 animation_time = 0.5
+
+[node name="Tween" type="Tween" parent="ContinueIcon"]
+repeat = true
+playback/repeat = true
+
+[node name="TextBoxDisplay" parent="." instance=ExtResource( 6 )]

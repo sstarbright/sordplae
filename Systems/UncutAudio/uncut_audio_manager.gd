@@ -60,6 +60,7 @@ func play_immediate(stream, bus, low_pitch = 1.0, high_pitch = 1.0, volume = 0.0
 	new_player.autoplay = true
 	new_player.set_stream(stream)
 	new_player.pitch_scale = rand_range(low_pitch, high_pitch)
+	new_player.mix_target = AudioStreamPlayer.MIX_TARGET_STEREO
 	add_child(new_player)
 
 func play2d(stream, bus, target, low_pitch = 1.0, high_pitch = 1.0, volume = 0.0, fade_speed = 1.0):
@@ -72,6 +73,7 @@ func play2d(stream, bus, target, low_pitch = 1.0, high_pitch = 1.0, volume = 0.0
 	new_player.set_target(target)
 	new_player.fade_speed = fade_speed
 	new_player.pitch_scale = rand_range(low_pitch, high_pitch)
+	new_player.panning_strength = 0.0
 	audio_space_2d.add_child(new_player)
 
 func play3d(stream, bus, target, low_pitch = 1.0, high_pitch = 1.0, distance = 50.0, volume = 0.0, fade_speed = 1.0):
@@ -87,4 +89,5 @@ func play3d(stream, bus, target, low_pitch = 1.0, high_pitch = 1.0, distance = 5
 	new_player.set_target(target)
 	new_player.fade_speed = fade_speed
 	new_player.pitch_scale = rand_range(low_pitch, high_pitch)
+	new_player.panning_strength = 0.0
 	audio_space_3d.add_child(new_player)

@@ -1,15 +1,8 @@
 extends MeshInstance2D
 
-var animation_tween
+onready var animation_tween = get_node("Tween")
 
 export var animation_time = 1.0
-
-func _ready():
-	animation_tween = Tween.new()
-	animation_tween.repeat = true
-	call_deferred("add_child", animation_tween)
-	if visible:
-		start_tween()
 
 func set_visible(new_visible):
 	if new_visible:

@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/Engine/Scripts/health_display.gd" type="Script" id=1]
+
+[node name="NormalHealth" type="Label"]
+margin_left = 37.0
+margin_top = 33.0
+margin_right = 85.0
+margin_bottom = 47.0
+rect_scale = Vector2( 5, 5 )
+text = "000000"
+script = ExtResource( 1 )
