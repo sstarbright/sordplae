@@ -1,5 +1,5 @@
 # Godot-specific ignores
-project/.import/
+.import/
 export.cfg
 export_presets.cfg
 
@@ -7,7 +7,7 @@ export_presets.cfg
 *.translation
 
 # Mono-specific ignores
-project/.mono/
-project/data_*/
+.mono/
+data_*/
 
 build/
